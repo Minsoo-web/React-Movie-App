@@ -1,0 +1,22 @@
+body {
+  margin: 0 6.5px;
+  padding: 0;
+  ul {
+    list-style: none;
+  }
+  h3,
+  h5 {
+    margin: 0;
+  }
+}
+
+.container {
+  width: 100%;
+  padding: 10px 0;
+
+  .movies {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+}

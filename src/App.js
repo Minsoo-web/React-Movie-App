@@ -1,37 +1,53 @@
 import React from "react";
+import axios from "axios";
+import Movie from "./Movie";
+import "./App.scss";
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { count: 0 };
-  }
-
-  componentDidMount() {
-    console.log("did mount");
-  }
-
-  componentDidUpdate() {
-    console.log("did update");
-  }
-
-  add = () => {
-    console.log("add clicked");
-    this.setState(state => ({ count: state.count + 1 }));
+  state = {
+    isLoading: true,
+    movies: []
   };
 
-  minus = () => {
-    this.setState({ count: this.state.count - 1 });
+  getMovies = async () => {
+    const {
+      data: {
+        data: { movies }
+      }
+    } = await axios.get("https://yts.mx/api/v2/list_movies.json?sort_by=rating");
+    this.setState({ movies });
+    console.log(movies);
   };
+
+  async componentDidMount() {
+    await this.getMovies();
+    this.setState({ isLoading: false });
+  }
 
   render() {
-    console.log("render");
-    const { count } = this.state;
+    const { isLoading, movies } = this.state;
     return (
-      <div>
-        <h1>{count}</h1>
-        <button onClick={this.add}>+</button>
-        <button onClick={this.minus}>-</button>
-      </div>
+      <section className="container">
+        {isLoading ? (
+          <div className="loader">
+            <span className="loader__text">Loading...</span>
+          </div>
+        ) : (
+          <div className="movies">
+            {movies.map(movie => (
+              <Movie
+                key={movie.id}
+                id={movie.id}
+                year={movie.year}
+                title={movie.title}
+                summary={movie.summary}
+                poster={movie.large_cover_image}
+                genres={movie.genres}
+              />
+            ))}
+          </div>
+        )}
+      </section>
     );
   }
 }

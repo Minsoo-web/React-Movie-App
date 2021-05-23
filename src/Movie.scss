@@ -1,0 +1,40 @@
+.movie {
+  flex: 1;
+  display: inline-flex;
+  flex-direction: column;
+  margin: 0 6.5px;
+  min-height: 400px;
+
+  .movie__poster {
+    width: 100%;
+    height: calc(100% * 1.5px);
+    min-width: 150px;
+    min-height: 225px;
+  }
+
+  .movie__data {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+
+    .movie__title {
+      margin: 10px 0;
+      max-width: 150px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .movie__genres {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0;
+      padding: 0;
+
+      .genres__genre {
+        color: #999;
+        margin: 0 2.5px;
+      }
+    }
+  }
+}
